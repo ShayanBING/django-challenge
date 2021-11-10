@@ -100,6 +100,22 @@ class database:
             return True,'done'
 
 
+    def buyTicket(self,user_name,seat_num,match_id):
+        sql = f"select is_available from seats where seat_num = %s and match_id=%s;"
+        val = (seat_num,match_id)
+        self.mycursor.execute(sql,val)
+        select = self.mycursor.fetchall()
+        if len(select) == 0:
+            return  False,'This Seats Dosent Exists ! :|' ,
+        else:
+            if select[0]['is_available']:
+                sql = f"update seats set is_available = 0 , user_id_ = %s where seat_num = %s and match_id = %s;"
+                val = (user_name,seat_num, match_id)
+                self.mycursor.execute(sql,val)
+                self.mydb.commit()
+                return True, 'done'
+            else:
+                return False , 'not_done'
 
     def connectionClose(self):
         self.mycursor.close()

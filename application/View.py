@@ -8,9 +8,9 @@ from .signupInterface import SignupAPI
 from .defineMatchInterface import DefineMatchAPI
 from .addStadiumInterface import AddStadiumAPI
 from .defineSeatsInterface import DedineSeatAPI
-
+from .buyTicketInterface import BuyTicketAPI
 app = Flask(__name__)
-cors = CORS(app, resources=['/login','/signup','define_match','/add_stadium','/define_seat'])
+cors = CORS(app, resources=['/login','/signup','define_match','/add_stadium','/define_seat','/buy'])
 app.config['CORS_HEADERS'] = '*'
 api = Api(app)
 
@@ -19,6 +19,8 @@ api.add_resource(SignupAPI,'/signup')
 api.add_resource(DefineMatchAPI,'/define_match')
 api.add_resource(AddStadiumAPI,'/add_stadium')
 api.add_resource(DedineSeatAPI,'/define_seat')
+api.add_resource(BuyTicketAPI,'/buy')
+
 @app.after_request
 def after_request(response):
     #response.headers.add('Access-Control-Allow-Origin', '*')
