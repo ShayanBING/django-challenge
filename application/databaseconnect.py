@@ -84,6 +84,23 @@ class database:
             return True
 
 
+    def defineSeat(self,stadium_id,number_of_seat,match_id):
+        all_seats = []
+        for i in range(number_of_seat):
+            all_seats.append(tuple([stadium_id,i,True,None,match_id]))
+        try:
+            sql = "insert into seats(stadium_id,seat_num,is_available,user_id_,match_id) values" \
+                    "(%s, %s, %s, %s,%s);"
+            self.mycursor.executemany(sql, all_seats)
+            self.mydb.commit()
+        except Exception as e:
+            logger.error(e)
+            return False,e
+        else:
+            return True,'done'
+
+
+
     def connectionClose(self):
         self.mycursor.close()
         self.mydb.close()
