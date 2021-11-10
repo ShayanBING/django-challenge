@@ -2,4 +2,6 @@
 .idea/
 *.egg-info
 venv/
+config
+needed_package
 **/__pycache__/*
