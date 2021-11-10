@@ -43,6 +43,22 @@ class database:
                 return 'password is wrong', False
 
 
+    def signUp(self,user_name, password,first_name,last_name,email,mobile):
+        try:
+            sql = "insert into user(user_name, password, first_name, last_name, email, mobile) values" \
+                "(%s, %s, %s, %s, %s, %s);"
+            val = (user_name, password,first_name,last_name,email,mobile)
+            self.mycursor.execute(sql,val)
+            self.mydb.commit()
+        except mysql.connector.IntegrityError as e:
+            logger.error(e)
+            return False
+        else:
+            return True
+
+
+
+
     def connectionClose(self):
         self.mycursor.close()
         self.mydb.close()

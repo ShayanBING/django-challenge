@@ -4,14 +4,16 @@ from flask_cors import CORS
 
 # Local application imports
 from .loginInterface import LoginAPI
+from .signupInterface import SignupAPI
+
 
 app = Flask(__name__)
-cors = CORS(app, resources=['/login'])
+cors = CORS(app, resources=['/login','/signup'])
 app.config['CORS_HEADERS'] = '*'
 api = Api(app)
 
 api.add_resource(LoginAPI, '/login')
-
+api.add_resource(SignupAPI,'/signup')
 
 
 @app.after_request
