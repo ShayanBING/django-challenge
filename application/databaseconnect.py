@@ -57,6 +57,31 @@ class database:
             return True
 
 
+    def defineMatch(self,match_id,home_team_id,away_team_id,stadium_id,date):
+        try:
+            sql = "insert into matches(match_id,home_team_id,away_team_id,stadium_id,date) values" \
+                    "(%s, %s, %s, %s, %s);"
+            val = (match_id,home_team_id,away_team_id,stadium_id,date)
+            self.mycursor.execute(sql, val)
+            self.mydb.commit()
+        except mysql.connector.IntegrityError as e:
+            logger.error(e)
+            return False
+        else:
+            return True
+
+    def addStadium(self,id,name,seats_num,home_team_id):
+        try:
+            sql = "insert into stadiums(id,name,seats_num,home_team_id) values" \
+                    "(%s, %s, %s, %s);"
+            val = (id,name,seats_num,home_team_id)
+            self.mycursor.execute(sql, val)
+            self.mydb.commit()
+        except mysql.connector.IntegrityError as e:
+            logger.error(e)
+            return False
+        else:
+            return True
 
 
     def connectionClose(self):

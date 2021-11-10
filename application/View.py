@@ -5,16 +5,19 @@ from flask_cors import CORS
 # Local application imports
 from .loginInterface import LoginAPI
 from .signupInterface import SignupAPI
+from .defineMatchInterface import DefineMatchAPI
+from .addStadiumInterface import AddStadiumAPI
 
 
 app = Flask(__name__)
-cors = CORS(app, resources=['/login','/signup'])
+cors = CORS(app, resources=['/login','/signup','define_match','/add_stadium'])
 app.config['CORS_HEADERS'] = '*'
 api = Api(app)
 
 api.add_resource(LoginAPI, '/login')
 api.add_resource(SignupAPI,'/signup')
-
+api.add_resource(DefineMatchAPI,'/define_match')
+api.add_resource(AddStadiumAPI,'/add_stadium')
 
 @app.after_request
 def after_request(response):
